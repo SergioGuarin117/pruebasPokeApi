@@ -1,6 +1,9 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -9,8 +12,19 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ServiceLoader;
+import javax.sound.sampled.spi.AudioFileReader;
+import java.io.BufferedInputStream;
+import java.nio.charset.StandardCharsets;
+import java.net.HttpURLConnection;
+import java.util.Arrays;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.spi.FormatConversionProvider;
 
 public class pokeApi {
+
+    private String urlSonidoPokemon;
+
     public void consultarPokemon(String nombrePokemon, JLabel resultado, JLabel imagen){
         try
         {
@@ -87,6 +101,11 @@ public class pokeApi {
                 System.out.println("\n Sonido: ");
                 System.out.println(json.getJSONObject("cries").getString("latest"));
 
+                JSONObject sonidoPokemon = json.getJSONObject("cries");
+                urlSonidoPokemon = sonidoPokemon.getString("latest");
+
+
+
             }else {
                 JOptionPane.showMessageDialog(null,"El pokemon no existe");
             }
@@ -126,6 +145,7 @@ public class pokeApi {
 
 
             botonSonido.addActionListener(evento ->{
+
 
             });
 
